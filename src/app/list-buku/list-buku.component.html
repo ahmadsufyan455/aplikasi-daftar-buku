@@ -1,0 +1,38 @@
+<form class="form-inline" style="float: right;">
+  <input class="form-control mr-sm-2" name="searchInput" placeholder="Cari buku..." #searchInput="ngModel"
+    [(ngModel)]="searchText">
+</form>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">No</th>
+      <th>Judul</th>
+      <th>Penulis</th>
+      <th>Penerbit</th>
+      <th>Tahun</th>
+      <th>Harga</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let buku of bukuArray; let nomor=index">
+      <tr *ngIf="filterCondition(buku)">
+        <th scope="row">{{nomor+1}}</th>
+        <td>{{buku.judulBuku}}</td>
+        <td>{{buku.penulis}}</td>
+        <td>{{buku.penerbit}}</td>
+        <td>{{buku.tahun}}</td>
+        <td>{{buku.harga}}</td>
+        <td>
+          <button class="btn btn-outline-info mr-3" data-toggle="modal" data-target="#exampleModalLong"
+            (click)="booksService.populateForm(buku)"><i class="fas fa-edit"></i></button>
+          <button class="btn btn-outline-danger" (click)="onDelete(buku.$key)"><i class="fas fa-trash-alt"></i></button>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<div class="alert alert-danger mt-3" *ngIf="showDeletedMessage">
+  Berhasil menghapus data.
+</div>

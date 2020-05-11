@@ -1,0 +1,65 @@
+<div class="container">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModalLong"
+    style="float: left;">
+    Tambah Buku
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Masukkan Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="this.booksService.form">
+            <input type="hidden" formControlName="$key">
+            <div class="form-group">
+              <label for="judul">Judul Buku</label>
+              <input formControlName="judulBuku" class="form-control" id="judul"
+                [ngClass]="{'is-invalid':submitted && formControls.judulBuku.errors}">
+              <div class="invalid-feedback" *ngIf="submitted && formControls.judulBuku.errors">
+                Kolom ini harus di isi.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="penulis">Penulis</label>
+              <input formControlName="penulis" class="form-control" id="penulis">
+            </div>
+            <div class="form-group">
+              <label for="penerbit">Penerbit</label>
+              <input formControlName="penerbit" class="form-control" id="penerbit">
+            </div>
+            <div class="form-group">
+              <label for="tahun">Tahun Terbit</label>
+              <input formControlName="tahun" class="form-control" id="tahun">
+            </div>
+            <div class="form-group">
+              <label for="harga">Harga</label>
+              <input formControlName="harga" class="form-control" id="harga">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button id="btnSave" type="button" class="btn btn-primary" (click)="onSubmit()">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <app-list-buku></app-list-buku>
+</div>
+<div class="alert alert-success mt-3" *ngIf="showSuccessMessage">
+  Berhasil menambahkan data.
+</div>
+<div class="alert alert-info mt-3" *ngIf="showSuccessEdit">
+  Berhasil mengubah data.
+</div>
